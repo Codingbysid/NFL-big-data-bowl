@@ -1,0 +1,26 @@
+{
+  "label": "cross-drill consistency of out-of-fold attempt residuals; most drills occur once",
+  "formula": "(MSB - MSW) / (MSB + (n0 - 1) * MSW), one-way random effects, players with >= 2 attempts",
+  "bootstrap_unit": "players, with duplicate draws relabeled so a player is not pooled with himself",
+  "icc_anova": {
+    "n_players": 38,
+    "n_attempts": 166,
+    "icc": 0.17760348973076856,
+    "within_sd": 0.27574771141895393,
+    "between_sd": 0.18418507126335817,
+    "n0_harmonic": 4.3620970367958325
+  },
+  "msw": 0.07603680035279069,
+  "msb": 0.14766588345991574,
+  "n0_harmonic": 4.3620970367958325,
+  "within_sd_sqrt_msw": 0.27574771141895393,
+  "sd_of_receiver_means": 0.18418507126335817,
+  "latent_between_sd": 0.12814363366806483,
+  "latent_between_note": "The SD of receiver means includes estimation error. The latent between-receiver SD is sqrt(max(0, (MSB-MSW)/n0)).",
+  "same_drill_family_groups_with_2plus_attempts": 45,
+  "same_drill_within_sd_values_n": 18,
+  "same_drill_within_sd_median": 0.12198957275970072,
+  "repeatability_threshold": "Not estimated. Comparable same-condition repeats are too few to support a detectable-change rule. The 0.3-yard practice statement is withdrawn.",
+  "trait_reliability_of_the_mean": 0.48507537034828324,
+  "exported_icc_matches_development_file": true
+}

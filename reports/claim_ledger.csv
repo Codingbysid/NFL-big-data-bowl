@@ -1,0 +1,62 @@
+claim_id,statement,value,unit,population,denominator,uncertainty,status,source,note
+roster_wr,Wide receivers in the player file,106.0,receivers,all draft classes,38+31+37,none,prespecified,reports/data_audit.md,Roster size
+roster_2023,2023 wide receivers,38.0,receivers,2023 class,players.csv,none,prespecified,reports/data_audit.md,2023 roster
+roster_2024,2024 wide receivers,31.0,receivers,2024 class,players.csv,none,prespecified,reports/data_audit.md,2024 roster
+roster_2025,2025 wide receivers,37.0,receivers,2025 class,players.csv,none,prespecified,reports/data_audit.md,2025 roster
+eligible_routes_2023,Eligible rookie regular-season routes,6280.0,routes,"2023 WR, forward pass, separation observed",29 players before the 20-route rule,none,prespecified,reports/coverage.csv,2023 eligible routes
+eligible_routes_2024,Eligible rookie regular-season routes,4368.0,routes,2024 WR,27 players before the 20-route rule,none,prespecified,reports/coverage.csv,2024 eligible routes
+eligible_routes_2025,Eligible rookie regular-season routes,3605.0,routes,2025 WR,23 players before the 20-route rule,none,prespecified,reports/coverage.csv,2025 eligible routes
+model_players_2023,Players in the 2023 out-of-fold model,28.0,receivers,at least 20 eligible routes,6279 routes,none,prespecified,outputs/packaged/development_metrics.json,2023 modeled players
+model_routes_2023,Routes in the 2023 out-of-fold model,6279.0,routes,28 receivers,28,none,prespecified,outputs/packaged/development_metrics.json,2023 modeled routes
+model_players_2024,Players in the 2024 chronological check,21.0,receivers,at least 20 eligible routes,4324 routes,none,prespecified,outputs/packaged/development_metrics.json,2024 modeled players
+model_routes_2024,Routes in the 2024 chronological check,4324.0,routes,21 receivers,21,none,prespecified,outputs/packaged/development_metrics.json,2024 modeled routes
+model_players_2025,Players in the 2025 evaluation,19.0,receivers,at least 20 eligible routes,3552 routes,none,prespecified,outputs/packaged/heldout_metrics.json,2025 modeled players
+model_routes_2025,Routes in the 2025 evaluation,3552.0,routes,19 receivers,19,none,prespecified,outputs/packaged/heldout_metrics.json,2025 modeled routes
+dev_combine_cuts,"Primary-family Combine cuts, 2023-24",406.0,cuts,entry speed at least 4 yd/s,"69 receivers, median 5 attempts, minimum 3",none,prespecified,reports/feasibility.md,Development combine cuts
+icc,Cross-drill consistency of out-of-fold attempt residuals (not same-drill repeatability),0.1776034897307685,ICC,2023 receivers with at least two attempts,"38 players, 166 attempts","0.037 to 0.291, 400 player bootstraps",prespecified,outputs/packaged/development_metrics.json,Reliability
+within_sd,Within-receiver SD of attempt residuals,0.2757477114189539,yards,same reliability sample,38 players,none,prespecified,outputs/packaged/development_metrics.json,"Cross-drill within SD, not sensor noise"
+between_sd,"SD of receiver-mean residuals, including estimation error",0.1841850712633581,yards,same reliability sample,38 players,none,prespecified,outputs/packaged/development_metrics.json,Between-player SD
+trait_forty_rho,Rank correlation of trait with forty,-0.0827527388228605,spearman,2023 out-of-fold traits merged to forty,24 receivers,none,prespecified ablation,outputs/packaged/development_metrics.json,Trait vs forty
+nfl_cut_share_2023,Share of 2023 tracked forward passes with a kept cut,0.104,share,2023 tracked forward passes,6521 routes,none,prespecified,reports/feasibility.md,2023 cut availability
+nfl_cut_share_2024,Share of 2024 tracked forward passes with a kept cut,0.098,share,2024 tracked forward passes,4479 routes,none,prespecified,reports/feasibility.md,2024 cut availability
+nfl_cut_share_2025,Share of 2025 tracked forward passes with a kept cut,0.113,share,2025 tracked forward passes,3698 routes,none,prespecified,outputs/packaged/nfl_quality_2025.parquet,2025 cut availability
+dagger_exit,Median dagger exit distance,3.275,yards,2023-24 dagger cuts,110 cuts,none,descriptive,reports/feasibility.md,Dagger exit
+speedout_exit,Median speed-out exit distance,2.918,yards,2023-24 speed-out cuts,83 cuts,none,descriptive,reports/feasibility.md,Speed-out exit
+oof_delta,2023 out-of-fold M2 minus M1,0.0344210972152516,yards of player-mean MAE,"28 receivers, 6279 routes",28,fold-wise penalties,prespecified,outputs/packaged/development_metrics.json,2023 OOF delta
+chrono_delta,2024 chronological M2 minus M1,-0.0019854863407893,yards of player-mean MAE,"21 receivers, 4324 routes",21,refit bootstrap -0.018 to 0.011,prespecified,outputs/packaged/development_metrics.json,2024 delta
+translation_2024,2024 Combine-to-NFL rank correlation,-0.3142857142857143,spearman,2024 receivers with both traits,21,none,prespecified secondary,outputs/packaged/development_metrics.json,2024 translation
+holdout_m0,2025 M0 player-mean MAE,0.1874489215822914,yards,19 receivers,3552 routes,none,prespecified,outputs/packaged/heldout_metrics.json,M0
+holdout_m1,2025 M1 player-mean MAE,0.1480774999266696,yards,19 receivers,3552 routes,none,prespecified,outputs/packaged/heldout_metrics.json,M1
+holdout_m2,2025 M2 player-mean MAE,0.1322698659605211,yards,19 receivers,3552 routes,none,prespecified,outputs/packaged/heldout_metrics.json,M2
+holdout_delta,2025 M2 minus M1,-0.0158076339661484,yards of player-mean MAE,19 receivers,3552 routes,"paired bootstrap -0.0333 to +0.0022, 2000 resamples",prespecified,outputs/packaged/heldout_metrics.json,Primary comparison
+holdout_route_m1,"2025 route-level MAE, M1",1.4278993001671076,yards,3552 routes,19 players,routes are not independent prospects,prespecified,outputs/packaged/heldout_metrics.json,Route MAE M1
+holdout_route_m2,"2025 route-level MAE, M2",1.4248399798440008,yards,3552 routes,19 players,routes are not independent prospects,prespecified,outputs/packaged/heldout_metrics.json,Route MAE M2
+holdout_spearman_m2,2025 rank correlation of M2 player means,0.8842105263157896,spearman,19 receivers,19,none,prespecified,outputs/packaged/heldout_metrics.json,M2 rank correlation
+holdout_calib_m2,2025 calibration slope of M2,0.9368848651995316,slope,19 player means,19,none,prespecified,outputs/packaged/heldout_metrics.json,M2 calibration
+m2_speed,2025 entry-speed ablation MAE,0.1371138106655259,yards,19 receivers,3552 routes,none,prespecified ablation,outputs/packaged/heldout_metrics.json,Entry speed ablation
+translation_2025,2025 Combine-to-NFL rank correlation,0.0827067669172932,spearman,receivers with both traits,20,slope 0.28 on the scatter,prespecified secondary,outputs/packaged/heldout_metrics.json,2025 translation
+trait_coef_z,M2 coefficient on standardized trait,-0.0379,yards of separation per SD,frozen model fit on 2023-24,"49 players, 10603 routes",trait SD in the training scale is 0.200 yards,prespecified model,archive/original_evaluation/models.joblib,Trait coefficient
+trait_sd,Training scale of the trait,0.199889408669439,yards,player-equal training routes,49 players,none,prespecified,archive/original_evaluation/models.joblib,Trait SD
+effect_threshold,Analyst-chosen MAE bar,0.1,yards,set before the 2025 evaluation,not an NFL standard,none,prespecified,config/research.yaml,Practical threshold
+forty_median,2023-24 median forty among modeled receivers,4.46,seconds,unique training players,49,band ±0.15 s for profiles,prespecified,archive/original_evaluation/freeze_manifest.json,Forty median
+band_n,2025 modeled receivers inside the forty band,16.0,receivers,forty within 0.15 s of 4.46,19 modeled,none,prespecified selection rule,outputs/packaged/heldout_metrics.json,Profile band
+man_m0,2025 man-coverage M0 MAE,0.1804672570698422,yards,"19 receivers, 955 man routes",at least 5 man routes,none,prespecified sensitivity,outputs/packaged/heldout_metrics.json,Man M0
+man_m1,2025 man-coverage M1 MAE,0.2525439968672425,yards,same man-route subset,955 routes,none,prespecified sensitivity,outputs/packaged/heldout_metrics.json,Man M1
+man_m2,2025 man-coverage M2 MAE,0.2362929977208301,yards,same man-route subset,955 routes,delta -0.016 vs M1,prespecified sensitivity,outputs/packaged/heldout_metrics.json,Man M2
+ngs_m1,2025 M1 plus NGS grades,0.1557942586023753,yards,19 receivers,3552 routes,secondary,prespecified secondary,outputs/packaged/heldout_metrics.json,NGS baseline
+undrafted_2025_out,Undrafted receivers among 2025 players below the route bar,13.0,receivers,18 receivers with fewer than 20 eligible routes,18,none,descriptive inclusion,reports/data_audit.md,2025 inclusion
+undrafted_2025_in,Undrafted receivers among modeled 2025 players,1.0,receivers,19 modeled receivers,19,none,descriptive inclusion,reports/data_audit.md,2025 inclusion modeled
+noel_trait,Jaylin Noel cut-exit residual,0.263,yards,3 attempts,leave-one-attempt SD 0.126,forty 4.39 s,prespecified profile rule,archive/original_evaluation/holdout_combine_traits.parquet,Noel trait
+noel_gap,Noel marginal tracking minus conventional,-0.078,yards of separation,training route mix,pre-outcome selection,none,prespecified profile rule,archive/original_evaluation/marginal.parquet,Noel gap
+noel_obs,Noel observed mean separation,3.224,yards,his 2025 eligible routes,conditional predictions 3.195 and 3.142,post-outcome description,"prespecified profile, outcome shown after",archive/original_evaluation/player_predictions.parquet,Noel outcome
+lane_trait,Jaylin Lane cut-exit residual,-0.404,yards,3 attempts,leave-one-attempt SD 0.128,forty 4.34 s,prespecified profile rule,archive/original_evaluation/holdout_combine_traits.parquet,Lane trait
+lane_gap,Lane marginal tracking minus conventional,0.055,yards of separation,training route mix,pre-outcome selection,none,prespecified profile rule,archive/original_evaluation/marginal.parquet,Lane gap
+lane_obs,Lane observed mean separation,3.18,yards,his 2025 eligible routes,conditional predictions 3.099 and 3.161,post-outcome description,"prespecified profile, outcome shown after",archive/original_evaluation/player_predictions.parquet,Lane outcome
+thornton_obs,Dont'e Thornton observed mean separation,2.541,yards,"largest absolute M2 error, chosen after outcomes",predictions 2.940 and 2.912,"trait 0.103 on 2 attempts, leave-one-out SD 0.296",post-hoc failure,archive/original_evaluation/player_predictions.parquet,Thornton miss
+smooth_3,2025 delta using a 3-frame smooth,-0.0153261937692334,yards,same 19 receivers,sensitivity,none,prespecified sensitivity,outputs/packaged/heldout_metrics.json,Smoothing 3
+smooth_7,2025 delta using a 7-frame smooth,-0.0160618173587509,yards,same 19 receivers,sensitivity,none,prespecified sensitivity,outputs/packaged/heldout_metrics.json,Smoothing 7
+latent_between_sd,"Latent between-receiver SD from ANOVA, sqrt((MSB-MSW)/n0)",0.12814363366806483,yards,"2023 OOF attempts, players with >=2",38 players,definition differs from SD of means,post-evaluation correction,outputs/post_evaluation/reliability.json,Not a bug relative to the SD of means
+common_penalty_delta,Retrospective 2025 M2 minus M1 at shared penalty 1.0,-0.007634057645299591,yards,19 evaluation receivers,penalty chosen on 2023-24 folds only,not a second holdout,post-evaluation diagnostic,outputs/post_evaluation/common_penalty.json,Original primary delta remains -0.0158
+lane_trait_term,Within-M2 contrast from zeroing Lane's trait,0.080507,yards,Lane's 2025 routes,decomposition,"diagnostic, not a treatment effect",post-evaluation diagnostic,outputs/post_evaluation/prediction_decomposition.csv,Shared features also move
+exploratory_cut_rho,Development rank correlation of trait with cut-route separation,-0.38254450716456795,spearman,48 of 49 development receivers,456 of 10603 routes,exploratory,post-evaluation exploratory,outputs/post_evaluation/exploratory_endpoint.json,Predeclared; 2025 not used to choose
+speedout_residual,Mean out-of-fold residual on speed-out attempts,-0.19399441034464424,yards,2023 OOF speed-out attempts,45 attempts,demand not fully removed,post-evaluation diagnostic,outputs/post_evaluation/demand_calibration_oof_2023.csv,Calibration

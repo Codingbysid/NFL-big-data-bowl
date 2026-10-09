@@ -1,0 +1,11 @@
+timestamp,stage,name,detail,status,prespecified
+2026-10-08T08:34:58Z,extract,cohorts,"extracted [2023, 2024]; allow_outcomes=False",ok,true
+2026-10-08T08:41:30Z,extract,cohorts,"extracted [2023, 2024]; allow_outcomes=False",ok,true
+2026-10-08T08:49:41Z,protocol,freeze_rules,"dfc5bbb37f447ee85ca1eea3d26d2c0e7a746567c39394c2f78be23be0fb3505",ok,true
+2026-10-08T08:52:53Z,develop,chrono_2024,"{'delta': -0.001985486340789322, 'alphas': {'M0': 0.3, 'M1': 3.0, 'M2': 3.0, 'M2_speed': 3.0, 'M2_shrunk': 3.0, 'M1_forty': 0.3, 'M1_ngs': 1.0, 'M2_ngs': 1.0, 'M2_draft': 3.0}}",ok,true
+2026-10-08T08:54:45Z,freeze,manifest,"dfc5bbb37f447ee85ca1eea3d26d2c0e7a746567c39394c2f78be23be0fb3505",ok,true
+2026-10-08T08:54:58Z,extract,cohorts,"extracted [2025]; allow_outcomes=True",ok,true
+2026-10-08T08:55:00Z,evaluate-heldout,cohort_2025,"{'delta': -0.015807633966148427, 'bootstrap': {'n_players': 19, 'delta_mae': -0.015807633966148427, 'p2_5': -0.03325513310454566, 'p97_5': 0.0021702143364315794, 'n_boot': 2000, 'label': 'paired player bootstrap of frozen predictions; conditional on the fitted pipeline'}}",ok,true
+2026-10-08T09:10:00Z,report,figure_labels,"Relabeled support bins and rounded figure titles after the holdout file was written. Models were not refit.",ok,false
+2026-10-09T05:11:31Z,post-evaluation,diagnostics,"Archived original freeze. Exported cuts, reliability components, common-penalty diagnostic, decomposition, and two predeclared development checks. 2025 was not used to choose them.",ok,false
+2026-10-09T05:22:00Z,reproduction,fresh-directory,"Refit in /tmp/bdb_repro matched archived 2025 predictions to 1e-14. Original manifest was not replaced.",ok,false

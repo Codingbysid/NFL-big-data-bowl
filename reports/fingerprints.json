@@ -1,0 +1,56 @@
+{
+  "players.csv": {
+    "name": "players.csv",
+    "bytes": 47301,
+    "sha256": "2cd7e0309e7aa40533028dc537c2c877dbedbe0fdb14f337fc18af31a5861c12",
+    "mtime_ns": 1790608496000000000
+  },
+  "combine_results.csv": {
+    "name": "combine_results.csv",
+    "bytes": 41020,
+    "sha256": "e4773ef68167d508f3916d446cd411dfd77a87e5765d3babcb986201fb143b86",
+    "mtime_ns": 1790607576000000000
+  },
+  "combine_tracking.csv": {
+    "name": "combine_tracking.csv",
+    "bytes": 83788174,
+    "sha256": "541c69f6629f5f803b08033c5c386735582120973562134b2c1e7ec6553fb0d3",
+    "mtime_ns": 1790607612000000000
+  },
+  "player_career_successes.csv": {
+    "name": "player_career_successes.csv",
+    "bytes": 13801,
+    "sha256": "0d4b8975debda4e2481218f30a16429dad5b806ecdd2fc4367291ac1460ed0a9",
+    "mtime_ns": 1790608436000000000
+  },
+  "player_play.csv": {
+    "name": "player_play.csv",
+    "bytes": 146879042,
+    "sha256": "68926a268c0a49e58616001fb35ea179018d9cbbce1c5c31e7a4095273c35b2a",
+    "mtime_ns": 1790608436000000000
+  },
+  "games.csv": {
+    "name": "games.csv",
+    "bytes": 43174,
+    "sha256": "ca33543f6939af4ee393c568c60920c476ba91ddbfbdce5a06578b9492fa11fd",
+    "mtime_ns": 1790608436000000000
+  },
+  "game_tracking_2023.csv": {
+    "name": "game_tracking_2023.csv",
+    "bytes": 335463637,
+    "sha256": "385e620b6b94e8cd91f0d5776395b76b10d52a34401c764c21b4e98ab617855c",
+    "mtime_ns": 1790607788000000000
+  },
+  "game_tracking_2024.csv": {
+    "name": "game_tracking_2024.csv",
+    "bytes": 717952893,
+    "sha256": "06b7f34304414306dab53d5cb4c5d28485c5f62376442bcb913f9f01184ece6d",
+    "mtime_ns": 1790607886000000000
+  },
+  "game_tracking_2025.csv": {
+    "name": "game_tracking_2025.csv",
+    "bytes": 1022575093,
+    "sha256": "419b6bc0388a9210f61911ec2f1351b1e8d56355c0ac8576f24a3bbcd95e54ca",
+    "mtime_ns": 1790608040000000000
+  }
+}

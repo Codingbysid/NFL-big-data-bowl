@@ -1,0 +1,10 @@
+{
+  "modeled_players": 49,
+  "players_with_a_supported_nfl_cut": 48,
+  "eligible_routes": 10603,
+  "routes_with_supported_cut": 456,
+  "spearman_trait_vs_all_route_mean": -0.17724489795918366,
+  "spearman_trait_vs_cut_route_mean": -0.38254450716456795,
+  "n_for_cut_correlation": 48,
+  "label": "development only; not used to revise the 2025 model"
+}

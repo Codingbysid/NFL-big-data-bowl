@@ -1,0 +1,14 @@
+{
+  "command": "BDB2027_WORK=/tmp/bdb_repro python -m bdb2027 extract/develop/freeze/evaluate-heldout",
+  "fresh_directory": "/tmp/bdb_repro",
+  "holdout_rows": 3552,
+  "max_abs_diff": {
+    "pred_M0": 4.44e-15,
+    "pred_M1": 3.55e-15,
+    "pred_M2": 3.55e-15,
+    "y": 0.0
+  },
+  "reproduced_delta": -0.015807633966148205,
+  "original_manifest_untouched": true,
+  "note": "Current code includes a work-directory switch and post-evaluation modules. Predictions match the archived 2025 evaluation to numerical noise. This run is a reproduction, not a new freeze."
+}

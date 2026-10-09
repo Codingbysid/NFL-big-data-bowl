@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/
+data/
+nfl-big-data-bowl-2027/
+*.parquet
+.pytest_cache/
+dist/
+*.egg-info/
+src/*.egg-info/

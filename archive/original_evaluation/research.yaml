@@ -1,0 +1,160 @@
+# The Cost of a Cut — research configuration.
+# Scientific defaults below are starting settings for outcome-blind review.
+# reports/protocol.md is the freeze record. Do not retune these on 2025 outcomes.
+
+data_root: nfl-big-data-bowl-2027
+holdout_min_draft_year: 2025
+position: WR
+season_type: REG
+
+development_cohorts: [2023, 2024]
+inner_development_cohort: 2023
+chronological_check_cohort: 2024
+evaluation_cohort: 2025
+
+tracking:
+  nominal_dt_s: 0.1
+  gap_split_s: 0.15
+  sg_window: 5
+  sg_order: 2
+  sg_windows_sensitivity: [3, 7]
+  speed_heading_min: 1.5
+  max_plausible_speed: 13.0
+
+cuts:
+  angle_min_deg: 30.0
+  angle_max_deg: 110.0
+  # 4.0 yd/s after the outcome-blind gallery: slower "cuts" were release arcs and low-speed wiggles.
+  entry_speed_min: 4.0
+  outgoing_speed_min: 1.0
+  min_side_s: 0.5
+  exit_horizon_s: 0.5
+  # 45 deg/s, not 80: 2023 heading traces showed rounded combine breaks
+  # peaking near 50-70 deg/s. Set before any separation model. Angle cap stays 110.
+  turn_rate_min_deg_s: 45.0
+  stable_window_s: 0.4
+  stable_heading_range_deg: 25.0
+  stable_search_s: 1.0
+  merge_gap_s: 0.25
+  min_turn_separation_s: 0.7
+  max_extra_heading_deg: 45.0
+  brake_lookback_s: 0.4
+
+# Drill names are harmonized into families. Cuts are still accepted or
+# rejected by geometry. Role controls which families enter the primary trait.
+drills:
+  primary:
+    SPEED_OUT:
+      - SPEED_OUT_LEFT
+      - SPEED_OUT_ROUTE_LEFT
+    SLOT_SAIL:
+      - SLOT_SAIL_ROUTE_RIGHT
+    DAGGER:
+      - DAGGER_ROUTE_LEFT
+    POST_CORNER:
+      - POST_CORNER_ROUTE_LEFT
+      - POST_CORNER_ROUTE_RIGHT
+    SLANT:
+      - SLANT_ROUTE_LEFT
+  secondary_turnback:
+    COMEBACK:
+      - COMEBACK_ROUTE_RIGHT
+    CURL:
+      - CURL_ROUTE_RIGHT
+    SLOT_STRIKE:
+      - SLOT_STRIKE_ROUTE_LEFT
+  excluded:
+    - GO_ROUTE_RIGHT
+    - RED_ZONE_FADE_RIGHT
+    - GAUNTLET_DRILL
+    - OVER_SHOULDER_ADJUST
+    - CIRCUS_ROUTE_LEFT
+    - FORTY_YARD_DASH
+    - SHORT_SHUTTLE
+    - THREE_CONE_DRILL
+
+routes:
+  eligible:
+    - GO
+    - HITCH
+    - CROSS
+    - IN
+    - OUT
+    - POST
+    - CORNER
+    - SLANT
+    - FLAT
+  excluded:
+    - SCREEN
+  rare_drop:
+    - WHEEL
+    - ANGLE
+  pass_results:
+    - C
+    - I
+    - IN
+  min_routes: 20
+  min_routes_sensitivity: [10, 40]
+  min_category_plays: 40
+
+conventional:
+  numeric:
+    - height
+    - weight
+    - age
+    - forty
+    - ten_yd_split
+    - vertical
+    - broad_jump
+    - three_cone
+    - short_shuttle
+  age_fallback_md: "03-01"
+
+context:
+  categorical:
+    - route_ran
+    - coverage_man_zone
+    - down
+    - offense_formation
+    - receiver_alignment
+    - motion
+  numeric:
+    - cushion
+    - yards_to_go
+    - yardline_number
+    - own_side
+
+models:
+  alphas: [0.3, 1.0, 3.0, 10.0, 30.0]
+  inner_folds: 5
+  demand_alpha: 3.0
+  bootstrap_predictions: 2000
+  bootstrap_refit: 100
+  permutation_reps: 20
+  # Analyst-chosen practical threshold for player-mean separation MAE.
+  # Not an NFL standard. Negative M2-M1 MAE is an improvement.
+  effect_threshold_mae_yards: 0.10
+  man_coverage_min_routes: 5
+  forty_band_seconds: 0.15
+  trait_estimator: median
+  min_attempts_for_trait: 2
+  random_seed: 2027
+
+support:
+  speed_edges: [2.0, 4.0, 6.0, 8.0, 13.0]
+  angle_edges: [30.0, 50.0, 70.0, 90.0, 110.0]
+  min_cell_combine: 15
+  min_cell_nfl: 15
+
+feasibility:
+  min_dev_players: 40
+  min_eval_players: 15
+  min_players_with_repeated_attempts: 30
+
+lightgbm:
+  enabled_secondary: true
+  grid:
+    - {max_depth: 2, num_leaves: 4, min_child_samples: 40, n_estimators: 80, learning_rate: 0.05}
+    - {max_depth: 2, num_leaves: 4, min_child_samples: 80, n_estimators: 120, learning_rate: 0.05}
+    - {max_depth: 3, num_leaves: 8, min_child_samples: 50, n_estimators: 80, learning_rate: 0.05}
+    - {max_depth: 2, num_leaves: 4, min_child_samples: 40, n_estimators: 80, learning_rate: 0.1}

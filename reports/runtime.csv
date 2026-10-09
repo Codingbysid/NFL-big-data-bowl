@@ -1,0 +1,4 @@
+timestamp,stage,seconds,peak_rss_bytes,detail
+2026-10-08T08:34:58Z,extract:2023,2024,28.35,589742080,ok
+2026-10-08T08:41:30Z,extract:2023,2024,26.94,616775680,ok
+2026-10-08T08:54:58Z,extract:2025,11.15,491208704,ok

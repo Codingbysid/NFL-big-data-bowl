@@ -1,0 +1,10 @@
+{
+  "primary_cuts_2023_24": 406,
+  "players_with_any_primary_cut_2023_24": 69,
+  "attempts_2023_24": 326,
+  "attempts_with_multiple_cuts": 80,
+  "cuts_in_final_support_2023_24": 321,
+  "note": "The 406-cut feasibility count is every primary-family Combine cut in 2023-24 after the entry-speed gate. It is not restricted to common-support cells or to the 49 modeled receivers. The primary trait uses all primary-family cuts for a player, not only support cells. Support restricts the translation claim.",
+  "primary_cuts_among_49_training_players": 295,
+  "training_players_with_a_cut": 49
+}
