@@ -158,6 +158,9 @@ class Project:
         candidates: list[Path] = []
         if explicit is not None:
             candidates.append(Path(explicit))
+        env_root = os.environ.get("BDB_DATA_ROOT")
+        if env_root:
+            candidates.append(Path(env_root))
         configured = Path(self.config.get("data_root", "nfl-big-data-bowl-2027"))
         if not configured.is_absolute():
             configured = self.root / configured

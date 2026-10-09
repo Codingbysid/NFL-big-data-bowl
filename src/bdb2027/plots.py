@@ -58,7 +58,7 @@ def _kinematics(t, x, y, window: int):
     )
 
 
-def plot_trajectory(t, x, y, path: Path, title: str, cut: dict | None = None, window: int = 5) -> None:
+def plot_trajectory(t, x, y, path: Path, title: str, cut: dict | None = None, window: int = 5, bound_t: float | None = None) -> None:
     """Trajectory and speed trace. Titles must already be anonymized."""
     kin = _kinematics(t, x, y, window)
     fig, axes = plt.subplots(2, 1, figsize=(7.4, 7.6), gridspec_kw={"height_ratios": [2.1, 1]})
@@ -90,6 +90,9 @@ def plot_trajectory(t, x, y, path: Path, title: str, cut: dict | None = None, wi
         t_rel = cut["t0"] - kin.t[0]
         ax2.axvline(t_rel, color=VERMILLION, lw=1.2, label="Cut time")
         ax2.axvspan(t_rel, t_rel + 0.5, color=GREEN, alpha=0.18, label="Exit window")
+        ax2.legend(frameon=False, fontsize=9)
+    if bound_t is not None and np.isfinite(bound_t):
+        ax2.axvline(float(bound_t) - kin.t[0], color=BLACK, ls="--", lw=1.0, label="Information boundary")
         ax2.legend(frameon=False, fontsize=9)
     ax2.set_xlabel("Time from first frame (seconds)")
     ax2.set_ylabel("Speed (yards/second)")

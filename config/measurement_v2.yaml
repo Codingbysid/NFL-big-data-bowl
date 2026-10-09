@@ -1,0 +1,60 @@
+# Versioned measurement study. This file does not alter config/research.yaml
+# or the archived 2025 evaluation.
+version: measurement_v2
+label: post-evaluation
+cohorts: [2023, 2024]
+holdout_year_excluded: 2025
+
+scope:
+  combine_families: [SPEED_OUT, DAGGER]
+  nfl_routes: [OUT, IN]
+  excluded_reason: >-
+    Other families stay out of this candidate. Slot strikes were marked after
+    the plant, go routes often marked a release, and rounded post-corners were
+    not a single stem-and-break. They are not a menu to search.
+
+break_rule:
+  name: single_bounded_break
+  description: >-
+    Keep an attempt only when the bounded detector returns exactly one cut.
+    Zero cuts is a rejection or unavailable measurement. Two or more cuts is
+    abstention, not an average.
+
+demand:
+  fit_on: all_eligible_inscope_training_cuts
+  support_role: filter_after_residual_before_aggregation
+  penalty_grid: [0.0, 0.01, 0.1, 1.0, 3.0]
+  historical_lambda: 3.0
+  objective: sum(w*residual^2)/sum(w) + lambda*||beta||^2
+  sklearn_alpha: lambda * sum(w)
+  selection: player_grouped_combine_exit_wmse
+  reference_family: SPEED_OUT
+
+support:
+  training_fold: 2023
+  min_cell_combine: 8
+  min_cell_nfl: 8
+  note: >-
+    Counts are lower than the historical 15 because this scope is two families.
+    The minimum was set before looking at separation. Cells are frozen from
+    2023 and applied to 2024.
+
+review:
+  seed: 20271009
+  validation_fraction: 0.4
+  accepted_per_domain: 30
+  rejected_per_domain: 10
+  agreement_target: 0.90
+  agreement_note: >-
+    Ambiguous annotations do not count as agreement. The target is an
+    engineering gate for this iteration, not an NFL standard.
+
+sample_rule:
+  min_players_with_both_traits: 20
+  min_players_in_chronological_year: 15
+  min_supported_routes_for_a_performance_model: 8
+  min_attempts_for_trait: 2
+
+decision:
+  do_not_use_2025_separation: true
+  stage_c_requires: [human_agreement_gate, sample_size_gate, zero_boundary_violations]
