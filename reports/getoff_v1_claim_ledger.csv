@@ -14,3 +14,5 @@ delta_interval,Player bootstrap interval for that difference,"-0.0135 to 0.0005"
 nested_m2,Pooled nested leave-one-player-out MAE for M2,0.0717,37 primary players,outputs/getoff_v1/summary.json
 split_spearman_pooled,Rank correlation of official split and median get-off,0.453,37 primary players,outputs/getoff_v1/summary.json
 transit_coef,Standardized 2023 coefficient on the transit,0.0043114705275307,seconds of get-off per training SD,outputs/getoff_v1/summary.json
+m1_at_penalty_3,Post-evaluation 2024 MAE of M1 refit at penalty 3,0.05941268981676354,same 19 players; not a replacement for tuned M1,outputs/getoff_v1/common_penalty_diagnostic.json
+m2_minus_m1_at_penalty_3,Tracking minus split at the shared penalty 3,0.0012961810072026209,positive means tracking increased error,outputs/getoff_v1/common_penalty_diagnostic.json
