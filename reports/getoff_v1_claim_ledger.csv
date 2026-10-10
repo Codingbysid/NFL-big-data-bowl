@@ -1,0 +1,16 @@
+claim_id,statement,value,population,source
+primary_players,Players in every primary model,37,2023-24 DE/DT/NT with at least 8 get-off plays and an official split and a valid transit,outputs/getoff_v1/player_ledger.csv
+players_2023,2023 primary players,18,same primary set,outputs/getoff_v1/summary.json
+players_2024,2024 primary players,19,same primary set,outputs/getoff_v1/summary.json
+getoff_at_least_8,Players with at least 8 get-off plays before the split and transit rules,40,2023-24 DE/DT/NT with a rookie regular-season play,outputs/getoff_v1/measurement_quality.json
+valid_attempt_fraction,Forty attempts with a verified origin and both crossings,1.0,94 defensive-line forty attempts in 2023-24,outputs/getoff_v1/measurement_quality.json
+icc,Repeat-attempt ICC of the 1-to-5-yard transit,0.593,44 players with two valid attempts,outputs/getoff_v1/measurement_quality.json
+within_sd,Within-player transit SD,0.025,same 44 players,outputs/getoff_v1/measurement_quality.json
+mae_m0,2024 MAE of the context model,0.0583,19 primary 2024 players,outputs/getoff_v1/summary.json
+mae_m1,2024 MAE after adding the official split,0.0675,same 19 players,outputs/getoff_v1/summary.json
+mae_m2,2024 MAE after adding the transit,0.0607,same 19 players,outputs/getoff_v1/summary.json
+delta_m2_m1,2024 M2 minus M1 MAE,-0.0068,same 19 players,outputs/getoff_v1/summary.json
+delta_interval,Player bootstrap interval for that difference,"-0.0135 to 0.0005",conditional on fitted predictions,outputs/getoff_v1/summary.json
+nested_m2,Pooled nested leave-one-player-out MAE for M2,0.0717,37 primary players,outputs/getoff_v1/summary.json
+split_spearman_pooled,Rank correlation of official split and median get-off,0.453,37 primary players,outputs/getoff_v1/summary.json
+transit_coef,Standardized 2023 coefficient on the transit,0.0043114705275307,seconds of get-off per training SD,outputs/getoff_v1/summary.json

@@ -1,0 +1,24 @@
+{
+  "attempts": 94,
+  "valid_attempts": 94,
+  "valid_fraction": 1.0,
+  "ambiguous_start": 0,
+  "incomplete_crossing": 0,
+  "players_with_8_getoff": 40,
+  "primary_players": 37,
+  "repeatability": {
+    "players_with_two_valid_attempts": 44,
+    "mean_second_minus_first": 0.0068036460401167675,
+    "sd_second_minus_first": 0.03519860821038311,
+    "icc": {
+      "n_players": 44,
+      "n_attempts": 88,
+      "icc": 0.5932677666770224,
+      "within_sd": 0.0250706386656444,
+      "sd_of_player_means": 0.03508653563593099,
+      "latent_between_sd": 0.03027864794504212,
+      "n0": 2.0
+    },
+    "median_abs_change_when_origin_moves_0_25_forward": 0.03246753184769774
+  }
+}

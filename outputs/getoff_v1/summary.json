@@ -1,0 +1,239 @@
+{
+  "stopped_before_models": false,
+  "quality": {
+    "attempts": 94,
+    "valid_attempts": 94,
+    "valid_fraction": 1.0,
+    "ambiguous_start": 0,
+    "incomplete_crossing": 0,
+    "players_with_8_getoff": 40,
+    "primary_players": 37,
+    "repeatability": {
+      "players_with_two_valid_attempts": 44,
+      "mean_second_minus_first": 0.0068036460401167675,
+      "sd_second_minus_first": 0.03519860821038311,
+      "icc": {
+        "n_players": 44,
+        "n_attempts": 88,
+        "icc": 0.5932677666770224,
+        "within_sd": 0.0250706386656444,
+        "sd_of_player_means": 0.03508653563593099,
+        "latent_between_sd": 0.03027864794504212,
+        "n0": 2.0
+      },
+      "median_abs_change_when_origin_moves_0_25_forward": 0.03246753184769774
+    }
+  },
+  "n_2023": 18,
+  "n_2024": 19,
+  "alphas": {
+    "M0": 0.3,
+    "M1": 1.0,
+    "M2": 3.0
+  },
+  "chronological_mae": {
+    "M0": 0.05834019133922743,
+    "M1": 0.06749967516486115,
+    "M2": 0.060708870823966136
+  },
+  "delta_m2_minus_m1": -0.006790804340895011,
+  "delta_bootstrap": {
+    "p2_5": -0.013451244494412817,
+    "p97_5": 0.00046890539414274414,
+    "n_boot": 2000,
+    "label": "conditional on the 2023-fitted 2024 predictions; players resampled; models not refit"
+  },
+  "transit_coefficient": {
+    "point": 0.005076399362598245,
+    "p2_5": -0.03444476445630395,
+    "p97_5": 0.03952100924478357,
+    "label": "2023 players resampled and M2 refit at the frozen penalty; alpha not retuned"
+  },
+  "nested_loo_mae": {
+    "M0": 0.06479501155379527,
+    "M1": 0.07035787927753966,
+    "M2": 0.07168556619104925
+  },
+  "influence": [
+    {
+      "nfl_id": 57136,
+      "delta_without_player": -0.006541044485973896
+    },
+    {
+      "nfl_id": 57137,
+      "delta_without_player": -0.006501973459958579
+    },
+    {
+      "nfl_id": 57148,
+      "delta_without_player": -0.007208260061518493
+    },
+    {
+      "nfl_id": 57156,
+      "delta_without_player": -0.005392391554967402
+    },
+    {
+      "nfl_id": 57159,
+      "delta_without_player": -0.005629099812615772
+    },
+    {
+      "nfl_id": 57160,
+      "delta_without_player": -0.006202743715095181
+    },
+    {
+      "nfl_id": 57169,
+      "delta_without_player": -0.006060228661135418
+    },
+    {
+      "nfl_id": 57177,
+      "delta_without_player": -0.007251649887061784
+    },
+    {
+      "nfl_id": 57216,
+      "delta_without_player": -0.00766659506453439
+    },
+    {
+      "nfl_id": 57218,
+      "delta_without_player": -0.005264546405218756
+    },
+    {
+      "nfl_id": 57226,
+      "delta_without_player": -0.008242299042884774
+    },
+    {
+      "nfl_id": 57265,
+      "delta_without_player": -0.006301325774335544
+    },
+    {
+      "nfl_id": 57289,
+      "delta_without_player": -0.007678636951273278
+    },
+    {
+      "nfl_id": 57309,
+      "delta_without_player": -0.005988429363028541
+    },
+    {
+      "nfl_id": 57317,
+      "delta_without_player": -0.007203850447838264
+    },
+    {
+      "nfl_id": 57334,
+      "delta_without_player": -0.007212943359601251
+    },
+    {
+      "nfl_id": 57356,
+      "delta_without_player": -0.007660542085749504
+    },
+    {
+      "nfl_id": 57434,
+      "delta_without_player": -0.008074936129967528
+    },
+    {
+      "nfl_id": 57436,
+      "delta_without_player": -0.006943786214246954
+    }
+  ],
+  "by_position": {
+    "DE": {
+      "n": 9,
+      "mae_m1": 0.07505226797896962,
+      "mae_m2": 0.07409692853440865
+    },
+    "DT": {
+      "n": 9,
+      "mae_m1": 0.05561949867828096,
+      "mae_m2": 0.04531663849761039
+    },
+    "NT": {
+      "n": 1,
+      "mae_m1": 0.10644792821710669,
+      "mae_m2": 0.07874644236718531
+    }
+  },
+  "spearman_official_split": {
+    "pooled": {
+      "n": 37,
+      "spearman": 0.45306174969238117
+    },
+    "y2023": {
+      "n": 18,
+      "spearman": 0.34989816766494675
+    },
+    "y2024": {
+      "n": 19,
+      "spearman": 0.593146785973672
+    },
+    "transit_2024": {
+      "n": 19,
+      "spearman": 0.3543859649122807
+    }
+  },
+  "coefs": {
+    "M0": {
+      "alpha": 0.3,
+      "intercept": 0.973611111442248,
+      "coef": [
+        0.013141683247735757,
+        0.0,
+        -0.08620598749323335,
+        0.0,
+        0.07331109596046051,
+        0.0
+      ],
+      "columns": [
+        "combine_weight",
+        "edge_play_share",
+        "median_start_depth"
+      ]
+    },
+    "M1": {
+      "alpha": 1.0,
+      "intercept": 0.9736111114422482,
+      "coef": [
+        0.053759301387016775,
+        0.0,
+        -0.07821674999017657,
+        0.0,
+        0.0668932965027242,
+        0.0,
+        -0.04214840743738629
+      ],
+      "columns": [
+        "combine_weight",
+        "edge_play_share",
+        "median_start_depth",
+        "ten_yd_split"
+      ]
+    },
+    "M2": {
+      "alpha": 3.0,
+      "intercept": 0.9736111114422481,
+      "coef": [
+        0.04159224892233946,
+        0.0,
+        -0.06301144149668067,
+        0.0,
+        0.05704135192009916,
+        0.0,
+        -0.02347929818009483,
+        0.0043114705275307
+      ],
+      "columns": [
+        "combine_weight",
+        "edge_play_share",
+        "median_start_depth",
+        "ten_yd_split",
+        "early_transit_1_5_s"
+      ]
+    }
+  },
+  "standardized_coefficients_2023": {
+    "combine_weight": 0.04159224892233946,
+    "combine_weight_missing": 0.0,
+    "edge_play_share": -0.06301144149668067,
+    "edge_play_share_missing": 0.0,
+    "median_start_depth": 0.05704135192009916,
+    "median_start_depth_missing": 0.0,
+    "ten_yd_split": -0.02347929818009483,
+    "early_transit_1_5_s": 0.0043114705275307
+  }
+}
