@@ -76,6 +76,22 @@ def test_one_slow_frame_is_an_ambiguous_start():
     assert not measured["valid"]
 
 
+def test_shared_penalty_diagnostic_matches_the_reviewed_errors():
+    from pathlib import Path
+
+    import pandas as pd
+
+    from bdb2027.getoff import common_penalty_diagnostic
+
+    ledger = Path("outputs/getoff_v1/player_ledger.csv")
+    if not ledger.exists():
+        pytest.skip("player ledger is produced by the development run")
+    result = common_penalty_diagnostic(pd.read_csv(ledger))
+    assert result["label"].startswith("post-evaluation")
+    assert result["mae_m1_alpha_3"] == pytest.approx(0.0594126898, abs=1e-9)
+    assert result["mae_m2_alpha_3"] == pytest.approx(0.0607088708, abs=1e-9)
+
+
 def test_2025_getoff_is_refused():
     with pytest.raises(PermissionError):
         assert_development_years([2023, 2025])

@@ -1,8 +1,23 @@
-# The Cost of a Cut
+# NFL Big Data Bowl 2027
 
-Research pipeline for the NFL Big Data Bowl 2027. It asks whether a wide receiver's Combine cut-exit residual — yards gained along the outgoing direction in the half-second after a turn, adjusted for entry speed, turn angle, and drill — predicts rookie-season separation beyond conventional Combine tests.
+Two studies live in this repository. They do not share a population or an endpoint.
 
-The 2023 class is for development. 2024 is a chronological check. 2025 is evaluated once, after `freeze`.
+## Defensive-line get-off (current writeup)
+
+Among 2023–24 defensive ends, tackles, and nose tackles, does a 1-to-5-yard forty transit add anything to rookie `player_get_off` beyond the official 10-yard split? The study did not establish that it does. 2025 is not used.
+
+- Writeup: `writeup/getoff.md`
+- Protocol: `reports/getoff_v1_protocol.md`
+- Results: `reports/getoff_v1_results.md`
+- Notebook: `notebooks/getoff_submission.ipynb` recomputes the measurement, the tuned comparison, the shared-penalty diagnostic, and the figures. `notebooks/submission.ipynb` is the older receiver study and does not support this writeup.
+- Run locally: `python -m bdb2027.getoff` with the competition CSVs in `nfl-big-data-bowl-2027/` or `BDB_DATA_ROOT`.
+- Kaggle: point the notebook at `/kaggle/input/nfl-big-data-bowl-2027` and add this repository's `src` to `PYTHONPATH`. That Kaggle execution has not been run.
+
+## Closed receiver-cut study
+
+The earlier study asks whether a wide receiver's Combine cut-exit residual predicts rookie-season separation. That candidate is closed. Its 2025 evaluation remains the historical result.
+
+The 2023 class is for development. 2024 is a chronological check. 2025 is evaluated once, after `freeze`. The draft is `writeup/draft.md`. The notebook for that study only is `notebooks/submission.ipynb`.
 
 ## Data
 

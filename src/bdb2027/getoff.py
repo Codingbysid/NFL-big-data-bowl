@@ -556,6 +556,37 @@ def _transit_coef(train: pd.DataFrame, columns: list[str], alpha: float) -> floa
     return float(model.coef_[stats["names"].index("early_transit_1_5_s")])
 
 
+def common_penalty_diagnostic(players: pd.DataFrame, spec: dict | None = None) -> dict:
+    """Refit the split model at the tracking model's penalty.
+
+    This is a post-evaluation diagnostic. It does not replace the
+    independently tuned M1-versus-M2 comparison. The shared penalty is 3,
+    which was selected on 2023 for M2 only. 2025 is not used.
+    """
+    spec = spec or load_spec()
+    primary = players.loc[players["in_primary"]].copy()
+    train = primary.loc[primary["draft_year"].eq(2023)].reset_index(drop=True)
+    test = primary.loc[primary["draft_year"].eq(2024)].reset_index(drop=True)
+    if len(test) != 19 or len(train) != 18:
+        raise ValueError(f"Expected 18/19 development players, found {len(train)}/{len(test)}")
+    y = test["median_getoff"].to_numpy(dtype=float)
+    shared = 3.0
+    pred_m1, _, _ = _fit_predict(train, test, MODEL_COLUMNS["M1"], shared)
+    pred_m2, _, _ = _fit_predict(train, test, MODEL_COLUMNS["M2"], shared)
+    mae_m1 = _mae(y, pred_m1)
+    mae_m2 = _mae(y, pred_m2)
+    return {
+        "label": "post-evaluation diagnostic; not a replacement for the independently tuned comparison",
+        "shared_penalty": shared,
+        "penalty_source": "2023 leave-one-player-out choice for M2",
+        "n_2024": int(len(test)),
+        "mae_m1_alpha_3": mae_m1,
+        "mae_m2_alpha_3": mae_m2,
+        "tracking_minus_split": mae_m2 - mae_m1,
+        "mae": {"M1_alpha_3.0": mae_m1, "M2_alpha_3.0": mae_m2},
+    }
+
+
 def _spear(left, right) -> dict:
     frame = pd.DataFrame({"left": left, "right": right}).dropna()
     if len(frame) < 5:
@@ -596,7 +627,10 @@ def run(root: Path | None = None) -> dict:
         fitted = fit_models(players, spec)
         fitted["predictions"].to_csv(out / "predictions_2024.csv", index=False)
         summary.update({k: v for k, v in fitted.items() if k != "predictions"})
-        _figures(out, attempts, players, fitted)
+        diagnostic = common_penalty_diagnostic(players, spec)
+        (out / "common_penalty_diagnostic.json").write_text(json.dumps(diagnostic, indent=2))
+        summary["common_penalty_diagnostic"] = diagnostic
+        _figures(out / "presentation", attempts, players, fitted, diagnostic)
     (out / "summary.json").write_text(json.dumps(summary, indent=2, default=_json))
     print(json.dumps({k: summary[k] for k in summary if k not in {"influence", "coefs"}}, indent=2, default=_json))
     return summary
@@ -611,57 +645,103 @@ def _json(value):
     return str(value)
 
 
-def _figures(out: Path, attempts: pd.DataFrame, players: pd.DataFrame, fitted: dict) -> None:
+def _figures(out: Path, attempts: pd.DataFrame, players: pd.DataFrame, fitted: dict, diagnostic: dict | None = None) -> None:
     import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
 
-    valid = attempts.loc[attempts["valid"]].sort_values("nfl_id")
+    out.mkdir(parents=True, exist_ok=True)
+    valid = attempts.loc[attempts["valid"]].sort_values(["nfl_id", "attempt"])
     chosen = valid.groupby("nfl_id", as_index=False).head(1).head(4)
-    fig, axes = plt.subplots(1, 2, figsize=(8.6, 4.0))
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 4.2))
     ax = axes[0]
     for row in chosen.itertuples(index=False):
-        ax.scatter([row.origin_x], [row.origin_y], color="#000000", s=18, zorder=3)
-        ax.scatter([row.x_at_1], [row.y_at_1], color="#E69F00", s=22, zorder=3)
-        ax.scatter([row.x_at_5], [row.y_at_5], color="#009E73", s=22, zorder=3)
-        ax.plot([row.origin_x, row.x_at_1, row.x_at_5], [row.origin_y, row.y_at_1, row.y_at_5], color="#0072B2", lw=1.2)
+        ax.plot(
+            [row.origin_x, row.x_at_1, row.x_at_5],
+            [row.origin_y, row.y_at_1, row.y_at_5],
+            color="#9E9E9E",
+            lw=1.0,
+            zorder=1,
+        )
+        ax.scatter([row.origin_x], [row.origin_y], color="#000000", s=28, zorder=3)
+        ax.scatter([row.x_at_1], [row.y_at_1], color="#E69F00", s=28, zorder=3)
+        ax.scatter([row.x_at_5], [row.y_at_5], color="#009E73", s=28, zorder=3)
+    ax.legend(
+        handles=[
+            Line2D([0], [0], marker="o", color="none", markerfacecolor="#000000", markersize=7, label="Origin"),
+            Line2D([0], [0], marker="o", color="none", markerfacecolor="#E69F00", markersize=7, label="1-yard crossing"),
+            Line2D([0], [0], marker="o", color="none", markerfacecolor="#009E73", markersize=7, label="5-yard crossing"),
+            Line2D([0], [0], color="#9E9E9E", lw=1.2, label="Line joins landmarks, not the path"),
+        ],
+        frameon=False,
+        fontsize=8,
+    )
+    ax.set_aspect("equal", adjustable="datalim")
     ax.set_xlabel("x (yards)")
     ax.set_ylabel("y (yards)")
-    ax.set_title("Origin, 1 yard, and 5 yards")
+    ax.set_title("Sampled landmarks")
     ax = axes[1]
     both = valid.groupby("nfl_id").filter(lambda g: len(g) >= 2)
+    first, second = [], []
     if len(both):
         wide = both.groupby("nfl_id")["early_transit_1_5_s"].apply(list)
         first = [v[0] for v in wide]
         second = [v[1] for v in wide]
         ax.scatter(first, second, color="#0072B2", s=28)
-        lo = min(first + second)
-        hi = max(first + second)
+        lo = min(first + second) - 0.02
+        hi = max(first + second) + 0.02
+        ax.set_xlim(lo, hi)
+        ax.set_ylim(lo, hi)
+        ax.set_aspect("equal", adjustable="box")
         ax.plot([lo, hi], [lo, hi], color="#666666", lw=0.8)
     ax.set_xlabel("First valid attempt (seconds)")
     ax.set_ylabel("Second valid attempt (seconds)")
-    ax.set_title("Repeated forties")
+    ax.set_title("Repeated forties, same scale")
     fig.tight_layout()
     fig.savefig(out / "fig_repeats.png", dpi=140)
     plt.close(fig)
 
-    primary = players.loc[players["in_primary"]]
+    primary = players.loc[players["in_primary"]].copy()
     fig, ax = plt.subplots(figsize=(6.4, 4.2))
-    ax.scatter(primary["early_transit_1_5_s"], primary["median_getoff"], c=primary["draft_year"], cmap="cividis", s=32)
+    for year, marker in ((2023, "o"), (2024, "s")):
+        part = primary.loc[primary["draft_year"].eq(year)]
+        ax.scatter(part["early_transit_1_5_s"], part["median_getoff"], marker=marker, s=36, label=str(year))
+    ax.legend(title="Draft class", frameon=False)
     ax.set_xlabel("Median 1-to-5-yard transit (seconds)")
     ax.set_ylabel("Median rookie get-off (seconds)")
-    ax.set_title("Development players, 2023 and 2024")
+    ax.set_title(f"Description only, n={len(primary)}. Not the incremental test.")
     fig.tight_layout()
     fig.savefig(out / "fig_translation.png", dpi=140)
     plt.close(fig)
 
-    fig, ax = plt.subplots(figsize=(6.2, 3.8))
-    labels = ["M0 context", "M1 plus split", "M2 plus transit"]
+    fig, axes = plt.subplots(1, 2, figsize=(8.8, 4.0))
+    ax = axes[0]
+    labels = ["Context", "Plus official split", "Plus transit"]
     values = [fitted["chronological_mae"][k] for k in ("M0", "M1", "M2")]
     ax.bar(labels, values, color=["#666666", "#0072B2", "#009E73"])
-    delta = fitted["delta_m2_minus_m1"]
-    low = fitted["delta_bootstrap"]["p2_5"]
-    high = fitted["delta_bootstrap"]["p97_5"]
     ax.set_ylabel("2024 mean absolute error (seconds)")
-    ax.set_title(f"M2−M1 = {delta:.3f} s (interval {low:.3f} to {high:.3f})")
+    ax.set_title("Independently tuned models")
+    ax.tick_params(axis="x", labelrotation=15)
+    ax = axes[1]
+    delta_ms = 1000 * fitted["delta_m2_minus_m1"]
+    low_ms = 1000 * fitted["delta_bootstrap"]["p2_5"]
+    high_ms = 1000 * fitted["delta_bootstrap"]["p97_5"]
+    ax.errorbar(
+        [0],
+        [delta_ms],
+        yerr=[[delta_ms - low_ms], [high_ms - delta_ms]],
+        fmt="o",
+        color="#009E73",
+        capsize=4,
+        label="Tuned M2−M1, conditional bootstrap",
+    )
+    if diagnostic is not None:
+        diag_ms = 1000 * diagnostic["tracking_minus_split"]
+        ax.scatter([1], [diag_ms], color="#D55E00", s=36, label="Same penalty 3, retrospective")
+    ax.axhline(0, color="black", lw=0.8)
+    ax.set_xticks([0, 1], ["Tuned models", "Shared penalty"])
+    ax.set_ylabel("Tracking minus split (milliseconds)")
+    ax.set_title(f"Interval {low_ms:.1f} to {high_ms:+.1f} ms")
+    ax.legend(frameon=False, fontsize=8)
     fig.tight_layout()
     fig.savefig(out / "fig_prediction.png", dpi=140)
     plt.close(fig)

@@ -1,10 +1,13 @@
 {
-  "label": "post-evaluation diagnostic; not a replacement for the independently tuned M1 versus M2 comparison",
-  "note": "Penalty 3 was the 2023-selected penalty for M2. M1 was refit at that same penalty. 2025 was not used.",
+  "label": "post-evaluation diagnostic; not a replacement for the independently tuned comparison",
+  "shared_penalty": 3.0,
+  "penalty_source": "2023 leave-one-player-out choice for M2",
+  "n_2024": 19,
+  "mae_m1_alpha_3": 0.05941268981676354,
+  "mae_m2_alpha_3": 0.060708870823966136,
+  "tracking_minus_split": 0.001296181007202593,
   "mae": {
-    "M1_alpha_1.0": 0.06749967516486115,
     "M1_alpha_3.0": 0.05941268981676354,
-    "M2_alpha_3.0": 0.060708870823966164
-  },
-  "tracking_minus_split_at_penalty_3": 0.0012961810072026209
+    "M2_alpha_3.0": 0.060708870823966136
+  }
 }
