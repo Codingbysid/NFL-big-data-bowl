@@ -1,0 +1,17 @@
+{
+  "sheet_rows": 64,
+  "joined_rows": 46,
+  "detected_below_4_combine": 4,
+  "detected_below_4_nfl": 8,
+  "combine_fail_families": [
+    "EXCLUDED",
+    "SLOT_STRIKE"
+  ],
+  "gated_combine_verdicts": {
+    "pass": 15,
+    "ambiguous": 1
+  },
+  "nfl_pass_rows": 9,
+  "nfl_pass_rows_with_detected_0": 1,
+  "attempts_with_multiple_cuts_in_joined_gallery": 3
+}

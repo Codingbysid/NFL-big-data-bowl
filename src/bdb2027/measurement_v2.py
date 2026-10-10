@@ -72,6 +72,7 @@ def _measure_group(frame: pd.DataFrame, params: dict, *, domain: str, fingerprin
     base = {
         "domain": domain,
         "trajectory_id": trajectory_id,
+        "attempt_uid": trajectory_id,
         "nfl_id": int(frame["nfl_id"].iloc[0]),
         "draft_year": int(frame["draft_year"].iloc[0]),
         "family": str(family),
@@ -220,8 +221,9 @@ def write_annotation_pack(sample: pd.DataFrame, out: Path, frames_lookup: dict) 
 
 def score_annotations(template: pd.DataFrame, key: pd.DataFrame) -> dict:
     """Score human labels. An empty template is pending, not agreement."""
-    if template.empty or template["intended_break_exists"].astype(str).str.strip().eq("").all():
-        return {"status": "pending_human", "agreement": None, "n_reviewed": 0}
+    filled = template["intended_break_exists"].astype(str).str.strip().str.lower()
+    if template.empty or filled.isin(["yes", "no", "absent"]).sum() == 0:
+        return {"status": "pending_human", "agreement": None, "n_reviewed": 0, "reason": "No human interval labels are filled in. Blank cells are not disagreements."}
     merged = template.merge(key, on="review_id", how="left")
     established = merged.loc[merged["ambiguous"].astype(str).str.lower().ne("yes")].copy()
     # Agreement: a labeled interval contains the detector t0, or both say no break.

@@ -1,0 +1,76 @@
+{
+  "chosen_lambda": 0.0,
+  "penalty_grid": [
+    {
+      "lambda": 0.0,
+      "mean_wmse": 0.03525809916933266,
+      "folds": [
+        0.03318506394964274,
+        0.035311579091651904,
+        0.044855443688409734,
+        0.034645352589242756,
+        0.028293056527716152
+      ]
+    },
+    {
+      "lambda": 0.01,
+      "mean_wmse": 0.03546760838833587,
+      "folds": [
+        0.032461704888179094,
+        0.03538045649685297,
+        0.044106312952166174,
+        0.03685163622406419,
+        0.02853793138041692
+      ]
+    },
+    {
+      "lambda": 0.1,
+      "mean_wmse": 0.03874767046668878,
+      "folds": [
+        0.03412060964439507,
+        0.03777818727924683,
+        0.04231680733282109,
+        0.049041540835681435,
+        0.03048120724129949
+      ]
+    },
+    {
+      "lambda": 1.0,
+      "mean_wmse": 0.048186582812791555,
+      "folds": [
+        0.04435036797820717,
+        0.05247026333622055,
+        0.04221301272601387,
+        0.07140067648647426,
+        0.030498593537041936
+      ]
+    },
+    {
+      "lambda": 3.0,
+      "mean_wmse": 0.06259467095714497,
+      "folds": [
+        0.060498944645562734,
+        0.07143017178388596,
+        0.05180174110758261,
+        0.0935370835379216,
+        0.03570541371077189
+      ]
+    }
+  ],
+  "historical_lambda": 3.0,
+  "demand_fit_on": "all_eligible_inscope_training_cuts",
+  "support_training_year": 2023,
+  "n_support_cells": 2,
+  "combine_single_cuts": 117,
+  "nfl_single_cuts": 362,
+  "combine_players": 69,
+  "nfl_players": 47,
+  "players_with_both_supported": 15,
+  "players_with_both_supported_2024": 16,
+  "boundary_violations_on_accepted_nfl": 0,
+  "same_family_groups_with_2plus": 14,
+  "review_status": "pending_human",
+  "review_rows": 70,
+  "abstained_multiple_cut_attempts": 60,
+  "oof_wmse_at_chosen_lambda": 0.035119007219780826
+}

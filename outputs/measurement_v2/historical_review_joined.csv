@@ -1,0 +1,65 @@
+anon_id,source,family,drill_or_route,detected,abs_angle,exit_distance,speed_in,verdict,note,review_round,n_cuts_in_attempt,shown_was_largest_angle_only,cut_speeds
+dce8bfd5ea,combine,SPEED_OUT,SPEED_OUT_ROUTE_LEFT,1,76.0,2.76,6.66,pass,"individual: speed-out bend, exit arrow follows the outgoing stem, speed stays high",pre-evaluation,1.0,True,6.66
+cd0a7f446e,combine,SPEED_OUT,SPEED_OUT_ROUTE_LEFT,1,73.6,2.84,6.53,pass,"post-eval individual: speed-out stem, halfway mark, exit along the outgoing stem",post-evaluation 2026-10-09,1.0,True,6.53
+70e926ffa9,combine,SPEED_OUT,SPEED_OUT_ROUTE_LEFT,1,68.2,2.82,6.49,pass,"post-eval individual: same speed-out geometry, speed held through the window",post-evaluation 2026-10-09,1.0,True,6.49
+62de51b3b5,combine,SPEED_OUT,SPEED_OUT_ROUTE_LEFT,1,86.2,2.44,6.69,pass,post-eval individual: halfway mark is early on a rounded bend; outgoing arrow still follows the exit,post-evaluation 2026-10-09,1.0,True,6.69
+d0e59128c0,combine,DAGGER,DAGGER_ROUTE_LEFT,1,72.5,3.01,7.66,pass,"individual: dagger stem, brake, then exit; cut time is on the corner",pre-evaluation,2.0,True,7.66;7.56
+7d940b48e1,combine,DAGGER,DAGGER_ROUTE_LEFT,1,52.7,3.59,7.84,pass,post-eval individual: dagger stem then break; speed dips and recovers,post-evaluation 2026-10-09,1.0,True,7.84
+4f6f631d3b,combine,DAGGER,DAGGER_ROUTE_LEFT,1,50.5,3.17,7.62,pass,post-eval individual: dagger break at the corner,post-evaluation 2026-10-09,2.0,True,7.62;7.30
+89b2f60876,combine,DAGGER,DAGGER_ROUTE_LEFT,1,45.1,3.42,7.54,pass,post-eval individual: dagger break; incoming stem is stable,post-evaluation 2026-10-09,1.0,True,7.54
+5d1c674a5b,combine,SLOT_SAIL,SLOT_SAIL_ROUTE_RIGHT,1,83.1,3.21,7.52,pass,post-eval individual: slot-sail break; incoming path is already curved,post-evaluation 2026-10-09,2.0,True,7.52;5.80
+dfee7af834,combine,SLOT_SAIL,SLOT_SAIL_ROUTE_RIGHT,1,76.9,3.61,8.35,pass,post-eval individual: slot-sail break at the top of the arc,post-evaluation 2026-10-09,1.0,True,8.35
+b0b1c735d7,combine,SLOT_SAIL,SLOT_SAIL_ROUTE_RIGHT,1,64.7,3.42,7.99,pass,"post-eval individual: slot-sail break, speed stays high",post-evaluation 2026-10-09,1.0,True,7.99
+3958c1dbeb,combine,SLOT_SAIL,SLOT_SAIL_ROUTE_RIGHT,1,69.4,3.01,7.33,pass,post-eval individual: slot-sail break at the corner,post-evaluation 2026-10-09,1.0,True,7.33
+0e435b9355,combine,SLOT_SAIL,SLOT_SAIL_ROUTE_RIGHT,0,,,,miss,post-eval individual: a rounded break is visible and was not marked,post-evaluation 2026-10-09,0.0,True,
+0f62070c45,combine,SLOT_SAIL,SLOT_SAIL_ROUTE_RIGHT,0,,,,miss,post-eval individual: rounded slot-sail bend not marked,post-evaluation 2026-10-09,0.0,True,
+f1576b21dc,combine,POST_CORNER,POST_CORNER_ROUTE_LEFT,1,75.8,2.89,7.52,pass,post-eval individual: later bend of a rounded post-corner; speed is stable,post-evaluation 2026-10-09,1.0,True,7.52
+379c9fb52b,combine,POST_CORNER,POST_CORNER_ROUTE_LEFT,1,72.7,3.01,7.83,pass,"post-eval individual: post-corner exit bend, defensible halfway mark",post-evaluation 2026-10-09,1.0,True,7.83
+ca780d3ba2,combine,POST_CORNER,POST_CORNER_ROUTE_LEFT,1,36.5,3.66,7.53,ambiguous,"individual: post-corner marker sits on a continuing arc, only a partial turn",pre-evaluation,1.0,True,7.53
+4ef4ea3e9d,combine,POST_CORNER,POST_CORNER_ROUTE_LEFT,1,50.1,3.33,7.6,pass,post-eval individual: post-corner exit bend,post-evaluation 2026-10-09,1.0,True,7.60
+b6b6a7a807,combine,POST_CORNER,POST_CORNER_ROUTE_RIGHT,0,,,,reject_ok,post-eval individual: gradual arc without a discrete stem-and-break,post-evaluation 2026-10-09,0.0,True,
+a516592f5b,combine,POST_CORNER,POST_CORNER_ROUTE_RIGHT,0,,,,reject_ok,"post-eval individual: gradual post-corner arc, no isolated break",post-evaluation 2026-10-09,0.0,True,
+e560386491,combine,SLANT,SLANT_ROUTE_LEFT,1,47.3,2.82,3.28,ambiguous,"individual: slant is one accelerating arc, not a stem-plus-break; entry under 4 yd/s",pre-evaluation,,,
+ae8ec1da73,combine,SLANT,SLANT_ROUTE_LEFT,1,54.1,2.67,3.63,ambiguous,"post-eval individual: slant mark is early, while speed is still rising",post-evaluation 2026-10-09,1.0,True,7.31
+8abd263156,combine,SLANT,SLANT_ROUTE_LEFT,1,40.2,2.55,3.96,ambiguous,"post-eval individual: slant mark during acceleration, not a settled stem",post-evaluation 2026-10-09,,,
+c61ec000e2,combine,SLANT,SLANT_ROUTE_LEFT,1,48.2,2.49,3.38,ambiguous,post-eval individual: early slant bend during acceleration,post-evaluation 2026-10-09,,,
+11bf75f122,combine,SLANT,SLANT_ROUTE_LEFT,0,,,,indeterminate,"post-eval individual: gradual slant bend, unmarked; may be too round for the rule",post-evaluation 2026-10-09,0.0,True,
+228fd7cebe,combine,SLANT,SLANT_ROUTE_LEFT,0,,,,indeterminate,"post-eval individual: gradual slant, unmarked",post-evaluation 2026-10-09,,,
+fc1178d955,combine,SLOT_STRIKE,SLOT_STRIKE_ROUTE_LEFT,1,60.0,3.38,6.63,fail,"post-eval individual: slot-strike mark is after the plant, not on the break",post-evaluation 2026-10-09,1.0,True,6.63
+6047482581,combine,SLOT_STRIKE,SLOT_STRIKE_ROUTE_LEFT,1,86.5,2.68,5.81,fail,post-eval individual: mark is on the exit stem after the plant,post-evaluation 2026-10-09,1.0,True,5.81
+59b2ed7d9a,combine,SLOT_STRIKE,SLOT_STRIKE_ROUTE_LEFT,1,47.8,3.27,6.24,fail,"post-eval individual: same late slot-strike mark, after the speed crash",post-evaluation 2026-10-09,1.0,True,6.24
+92b7c8b1ff,combine,EXCLUDED,GAUNTLET_DRILL,1,66.2,3.33,7.69,fail,post-eval individual: late bend in a multi-move drill; excluded from the primary trait,post-evaluation 2026-10-09,1.0,True,7.69
+5fa6e27ae4,combine,EXCLUDED,GAUNTLET_DRILL,1,82.6,2.23,7.23,montage,Seen on the contact sheet only; not opened full size,,1.0,True,7.23
+904739c516,combine,EXCLUDED,GAUNTLET_DRILL,1,76.0,3.04,7.56,montage,Seen on the contact sheet only; not opened full size,,1.0,True,7.56
+cacb6fbfdc,combine,EXCLUDED,OVER_SHOULDER_ADJUST,0,,,,montage,Seen on the contact sheet only; not opened full size,,0.0,True,
+dbcd3320ad,combine,EXCLUDED,OVER_SHOULDER_ADJUST,0,,,,montage,Seen on the contact sheet only; not opened full size,,0.0,True,
+9a38b8284b,nfl,OUT,OUT,1,82.5,2.69,5.14,pass,"individual: NFL out break before the throw, arrow down the exit stem",pre-evaluation,1.0,True,5.14
+ea5d92056d,nfl,OUT,OUT,1,51.8,2.14,4.95,fail,post-eval individual: out mark sits on a slowdown; exit arrow does not follow the continuing stem,post-evaluation 2026-10-09,1.0,True,4.95
+0c4e9e80de,nfl,OUT,OUT,1,66.6,2.96,5.64,pass,"post-eval individual: out break, arrow along the sideline, speed held",post-evaluation 2026-10-09,1.0,True,5.64
+f1a2b4dc5c,nfl,IN,IN,1,35.1,3.16,6.4,pass,post-eval individual: in break at the top of the stem,post-evaluation 2026-10-09,1.0,True,6.40
+1048cb4a25,nfl,IN,IN,1,51.5,3.11,7.63,pass,post-eval individual: in break after the vertical stem,post-evaluation 2026-10-09,1.0,True,7.63
+4e1c7c2ec1,nfl,IN,IN,1,78.7,2.41,7.19,pass,post-eval individual: break off a long stem; speed is already falling,post-evaluation 2026-10-09,1.0,True,7.19
+89ed91c506,nfl,SLANT,SLANT,1,98.4,1.74,2.99,ambiguous,post-eval individual: slant mark near the top while speed is still building,post-evaluation 2026-10-09,,,
+818857a229,nfl,SLANT,SLANT,1,63.1,1.79,3.75,ambiguous,"post-eval individual: mark at the top of the stem, entry near the speed floor",post-evaluation 2026-10-09,,,
+ddf51e0d14,nfl,SLANT,SLANT,1,83.7,1.65,2.21,fail,post-eval individual: early curve while still accelerating; below the final entry-speed gate,post-evaluation 2026-10-09,,,
+a3654e423d,nfl,HITCH,HITCH,1,102.4,0.99,2.15,fail,"individual: low-speed hitch wiggle, exit under 1 yard, path is not one break",pre-evaluation,,,
+273c73ac07,nfl,HITCH,HITCH,1,102.6,1.73,5.0,ambiguous,post-eval individual: hitch plant is real; the exit window is still in the speed hole,post-evaluation 2026-10-09,,,
+f3d920cb35,nfl,HITCH,HITCH,1,46.4,1.15,3.93,ambiguous,post-eval individual: hitch turnaround at low speed,post-evaluation 2026-10-09,,,
+523f062268,nfl,CORNER,CORNER,1,49.1,3.2,6.59,pass,post-eval individual: corner break at full speed,post-evaluation 2026-10-09,,,
+64002a8d10,nfl,CORNER,CORNER,1,62.4,3.15,6.28,pass,"post-eval individual: corner break, arrow follows the exit",post-evaluation 2026-10-09,1.0,True,6.28
+4ec74aeee7,nfl,CORNER,CORNER,1,55.9,1.6,2.31,fail,"post-eval individual: early release, not the corner break; entry below the final gate",post-evaluation 2026-10-09,,,
+973d9cbf2a,nfl,POST,POST,1,33.0,3.35,6.61,pass,post-eval individual: post break from a flat stem,post-evaluation 2026-10-09,1.0,True,6.61
+a3778abc83,nfl,POST,POST,1,59.4,2.7,7.52,ambiguous,post-eval individual: later bend on a multi-move path while slowing,post-evaluation 2026-10-09,1.0,True,7.52
+45b24fda44,nfl,POST,POST,1,83.1,2.23,6.53,ambiguous,post-eval individual: break at a speed dip; outgoing path is not yet stable,post-evaluation 2026-10-09,,,
+64a2b2e625,nfl,CROSS,CROSS,1,47.6,3.38,6.37,ambiguous,"post-eval individual: early mark on a long curve, not a discrete break",post-evaluation 2026-10-09,,,
+6fa9f6221b,nfl,CROSS,CROSS,1,65.5,1.31,3.21,ambiguous,post-eval individual: cross mark at a low-speed plant,post-evaluation 2026-10-09,,,
+81e1dd8fac,nfl,CROSS,CROSS,1,48.1,3.18,4.1,fail,"post-eval individual: release off the line, not the cross break",post-evaluation 2026-10-09,,,
+aa5676aae0,nfl,GO,GO,1,53.7,2.44,3.66,fail,"individual: GO mark is the release onto the stem, not a route break",pre-evaluation,,,
+6ad7d80c7f,nfl,GO,GO,1,50.8,3.17,5.93,fail,post-eval individual: early curve on a go route,post-evaluation 2026-10-09,,,
+902fbae707,nfl,GO,GO,1,108.9,2.11,7.4,ambiguous,post-eval individual: go mark is late and sits in a speed dip,post-evaluation 2026-10-09,1.0,True,7.40
+ad84515b2d,nfl,OUT,OUT,0,,,,pass,"individual: out bends, but no cut is kept; consistent with a late break whose exit window would cross the pass",pre-evaluation,0.0,True,
+42588fe5a1,nfl,OUT,OUT,0,,,,miss,post-eval individual: an out break is visible and was not marked,post-evaluation 2026-10-09,0.0,True,
+47630ee085,nfl,OUT,OUT,0,,,,miss,post-eval individual: an out break is visible and was not marked,post-evaluation 2026-10-09,0.0,True,
+c24d987f10,nfl,OUT,OUT,0,,,,indeterminate,post-eval individual: small slow out; bend exists but speed stays near 4 yd/s,post-evaluation 2026-10-09,0.0,True,
+6f0b03d758,nfl,SCREEN,SCREEN,0,,,,reject_ok,"post-eval individual: screen loop, no isolated route break",post-evaluation 2026-10-09,0.0,True,
+58f6648610,nfl,SCREEN,SCREEN,0,,,,reject_ok,"post-eval individual: curved screen, no discrete break",post-evaluation 2026-10-09,0.0,True,

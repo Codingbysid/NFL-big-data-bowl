@@ -156,6 +156,14 @@ def test_evaluation_rows_do_not_change_frozen_support():
     assert contaminated != frozen
 
 
+def test_blank_annotation_template_is_pending():
+    from bdb2027.measurement_v2 import score_annotations
+
+    template = pd.DataFrame({"review_id": ["a"], "intended_break_exists": [""], "ambiguous": [""]})
+    key = pd.DataFrame({"review_id": ["a"], "selected": [True], "detector_t0": [1.0]})
+    assert score_annotations(template, key)["status"] == "pending_human"
+
+
 def test_weight_and_penalty_rescale_together():
     frame = pd.DataFrame(
         [

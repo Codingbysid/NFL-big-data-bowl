@@ -1,0 +1,6 @@
+{
+  "status": "pending_human",
+  "agreement": null,
+  "n_reviewed": 0,
+  "reason": "No human interval labels are filled in. Blank cells are not disagreements."
+}
