@@ -1,0 +1,48 @@
+# Development study only. Does not change the closed cut study or the 2025 evaluation.
+version: getoff_v1
+label: development_analysis
+cohorts: [2023, 2024]
+evaluation_closed: 2025
+
+population:
+  positions: [DE, DT, NT]
+  season_type: REG
+  min_getoff_observations: 8
+
+combine_feature:
+  name: early_transit_1_5_s
+  drill_type: FORTY_YARD_DASH
+  near_yard: 1.0
+  far_yard: 5.0
+  stationary_speed_max: 2.0
+  min_stationary_frames: 2
+  max_gap_s: 0.15
+  max_step_speed: 13.0
+  min_long_span_yards: 35.0
+  max_long_span_yards: 50.0
+  transit_min_s: 0.15
+  transit_max_s: 1.50
+  origin_shift_sensitivity_yards: 0.25
+  aggregate: player_median
+
+nfl_endpoint:
+  field: player_get_off
+  aggregate: player_median
+  missing_is_not_zero: true
+
+context:
+  features: [combine_weight, edge_play_share, median_start_depth]
+  edge_label: EDGE
+  interior_label: INTERIOR_LINE
+  max_plausible_depth_yards: 5.0
+
+models:
+  alphas: [0.3, 1.0, 3.0, 10.0]
+  bootstrap_players: 2000
+  coefficient_bootstrap: 1000
+  seed: 20271010
+
+coverage_stop:
+  min_matched_development_players: 30
+  min_fraction_attempts_with_origin_and_crossings: 0.80
+  min_untouched_evaluation_players_not_lowered: 20
