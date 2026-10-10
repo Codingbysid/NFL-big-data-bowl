@@ -1,5 +1,7 @@
 """Sensor transit time: clocks, geometry, and the closed 2025 endpoint."""
 
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import pytest
@@ -95,3 +97,24 @@ def test_shared_penalty_diagnostic_matches_the_reviewed_errors():
 def test_2025_getoff_is_refused():
     with pytest.raises(PermissionError):
         assert_development_years([2023, 2025])
+
+
+def test_paths_stay_separate(tmp_path, monkeypatch):
+    from bdb2027.getoff import resolve_paths
+
+    monkeypatch.delenv("BDB_WORK_ROOT", raising=False)
+    monkeypatch.delenv("BDB_DATA_ROOT", raising=False)
+    code = tmp_path / "code"
+    (code / "config").mkdir(parents=True)
+    (code / "config" / "getoff_v1.yaml").write_text("version: getoff_v1\n")
+    (code / "nfl-big-data-bowl-2027").mkdir()
+    (code / "nfl-big-data-bowl-2027" / "players.csv").write_text("nfl_id\n")
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "players.csv").write_text("nfl_id\n")
+    work = tmp_path / "work"
+    assert resolve_paths(code, data, work) == (code, data, work)
+    if Path("/kaggle/working").is_dir():
+        return
+    with pytest.raises(FileNotFoundError, match="BDB_WORK_ROOT"):
+        resolve_paths(code, data, None)

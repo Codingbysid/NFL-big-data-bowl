@@ -7,6 +7,7 @@ not the guard for this endpoint.
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import duckdb
@@ -14,18 +15,93 @@ import numpy as np
 import pandas as pd
 from sklearn.linear_model import Ridge
 
-from bdb2027.config import Project, load_config
+from bdb2027.config import load_config
 
 SPEC_PATH = "config/getoff_v1.yaml"
 
 
-def load_spec(root: Path | None = None) -> dict:
-    root = root or Project().root
-    return load_config(Path(root) / SPEC_PATH)
+REQUIRED_CSVS = (
+    "players.csv",
+    "games.csv",
+    "player_play.csv",
+    "combine_results.csv",
+    "combine_tracking.csv",
+    "game_tracking_2023.csv",
+    "game_tracking_2024.csv",
+)
 
 
-def _con(root: Path) -> duckdb.DuckDBPyConnection:
-    data = root / "nfl-big-data-bowl-2027"
+def resolve_paths(
+    code_root: Path | None = None,
+    data_root: Path | None = None,
+    work_root: Path | None = None,
+) -> tuple[Path, Path, Path]:
+    """Separate read-only code, read-only competition files, and writable outputs."""
+    code = _resolve_code_root(code_root)
+    data = _resolve_data_root(data_root, code)
+    work = _resolve_work_root(work_root)
+    return code, data, work
+
+
+def _resolve_code_root(explicit: Path | None) -> Path:
+    if explicit is not None:
+        return Path(explicit)
+    for key in ("BDB_CODE_ROOT", "BDB2027_ROOT"):
+        if os.environ.get(key):
+            return Path(os.environ[key])
+    cwd = Path.cwd()
+    for parent in [cwd, *cwd.parents]:
+        if (parent / SPEC_PATH).exists():
+            return parent
+    raise FileNotFoundError(f"Could not find {SPEC_PATH}. Set BDB_CODE_ROOT.")
+
+
+def _resolve_data_root(explicit: Path | None, code_root: Path) -> Path:
+    candidates: list[Path] = []
+    if explicit is not None:
+        candidates.append(Path(explicit))
+    if os.environ.get("BDB_DATA_ROOT"):
+        candidates.append(Path(os.environ["BDB_DATA_ROOT"]))
+    candidates.append(code_root / "nfl-big-data-bowl-2027")
+    candidates.append(Path("/kaggle/input/nfl-big-data-bowl-2027"))
+    for candidate in candidates:
+        if (candidate / "players.csv").exists():
+            return candidate
+    tried = ", ".join(str(c) for c in candidates)
+    raise FileNotFoundError(f"Could not find players.csv. Tried: {tried}")
+
+
+def _resolve_work_root(explicit: Path | None) -> Path:
+    if explicit is not None:
+        return Path(explicit)
+    if os.environ.get("BDB_WORK_ROOT"):
+        return Path(os.environ["BDB_WORK_ROOT"])
+    if Path("/kaggle/working").is_dir():
+        return Path("/kaggle/working/getoff-study")
+    raise FileNotFoundError(
+        "Set BDB_WORK_ROOT to a writable directory. "
+        "On Kaggle the default is /kaggle/working/getoff-study."
+    )
+
+
+def validate_inputs(code_root: Path, data_root: Path) -> None:
+    missing = []
+    if not (code_root / SPEC_PATH).exists():
+        missing.append(str(code_root / SPEC_PATH))
+    for name in REQUIRED_CSVS:
+        if not (data_root / name).exists():
+            missing.append(str(data_root / name))
+    if missing:
+        raise FileNotFoundError("Missing required files:\n" + "\n".join(missing))
+
+
+def load_spec(code_root: Path | None = None) -> dict:
+    code_root = _resolve_code_root(code_root)
+    return load_config(Path(code_root) / SPEC_PATH)
+
+
+def _con(data_root: Path) -> duckdb.DuckDBPyConnection:
+    data = Path(data_root)
     con = duckdb.connect()
     con.execute(
         f"""
@@ -169,11 +245,11 @@ def _crossing(t, distance, x, y, target: float, max_gap: float):
     return float("nan"), False, (float("nan"), float("nan"))
 
 
-def extract_attempts(root: Path, spec: dict) -> pd.DataFrame:
+def extract_attempts(data_root: Path, spec: dict) -> pd.DataFrame:
     assert_development_years(spec["cohorts"])
     years = ",".join(str(int(y)) for y in spec["cohorts"])
     positions = ",".join(f"'{p}'" for p in spec["population"]["positions"])
-    frame = _con(root).execute(
+    frame = _con(data_root).execute(
         f"""
         SELECT c.nfl_id, c.draft_year, p.nfl_position, c.event_id, c.attempt, c.time, c.x, c.y, c.s
         FROM comb c
@@ -218,12 +294,12 @@ def _line_of_scrimmage(side, number, possession, direction) -> float:
     return float("nan")
 
 
-def load_getoff(root: Path, spec: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
+def load_getoff(data_root: Path, spec: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Return play rows and an availability audit. 2025 is rejected up front."""
     assert_development_years(spec["cohorts"])
     years = ",".join(str(int(y)) for y in spec["cohorts"])
     positions = ",".join(f"'{p}'" for p in spec["population"]["positions"])
-    plays = _con(root).execute(
+    plays = _con(data_root).execute(
         f"""
         SELECT pl.game_id, pl.play_id, pl.nfl_id, p.draft_year, p.nfl_position,
                pl.player_get_off, pl.pass_result, pl.lined_up_position,
@@ -250,13 +326,14 @@ def load_getoff(root: Path, spec: dict) -> tuple[pd.DataFrame, pd.DataFrame]:
     return plays, audit
 
 
-def snap_depth(root: Path, plays: pd.DataFrame, spec: dict) -> pd.DataFrame:
+def snap_depth(data_root: Path, plays: pd.DataFrame, spec: dict) -> pd.DataFrame:
     """Depth at the snap frame only. Later movement is not used."""
     keys = plays[["game_id", "play_id", "nfl_id", "draft_year", "play_direction", "yardline_number", "yardline_side", "possession_team"]].drop_duplicates()
     years = sorted(int(y) for y in keys["draft_year"].unique())
     frames = []
     for year in years:
-        path = root / "nfl-big-data-bowl-2027" / f"game_tracking_{year}.csv"
+        assert_development_years([year])
+        path = Path(data_root) / f"game_tracking_{year}.csv"
         year_keys = keys.loc[keys["draft_year"].eq(year), ["game_id", "play_id", "nfl_id"]]
         if year_keys.empty:
             continue
@@ -594,17 +671,21 @@ def _spear(left, right) -> dict:
     return {"n": int(len(frame)), "spearman": float(frame["left"].corr(frame["right"], method="spearman"))}
 
 
-def run(root: Path | None = None) -> dict:
-    project = Project()
-    root = root or project.root
-    spec = load_spec(root)
-    out = project.outputs / "getoff_v1"
+def run(
+    code_root: Path | None = None,
+    data_root: Path | None = None,
+    work_root: Path | None = None,
+) -> dict:
+    code_root, data_root, work_root = resolve_paths(code_root, data_root, work_root)
+    validate_inputs(code_root, data_root)
+    spec = load_spec(code_root)
+    out = Path(work_root)
     out.mkdir(parents=True, exist_ok=True)
-    attempts = extract_attempts(root, spec)
+    attempts = extract_attempts(data_root, spec)
     attempts.to_csv(out / "attempts.csv", index=False)
-    plays, audit = load_getoff(root, spec)
+    plays, audit = load_getoff(data_root, spec)
     audit.to_csv(out / "getoff_availability.csv", index=False)
-    depth = snap_depth(root, plays, spec)
+    depth = snap_depth(data_root, plays, spec)
     players = build_players(attempts, plays, depth, spec)
     players.to_csv(out / "player_ledger.csv", index=False)
     quality = {

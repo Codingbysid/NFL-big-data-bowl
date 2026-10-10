@@ -10,8 +10,8 @@ Among 2023–24 defensive ends, tackles, and nose tackles, does a 1-to-5-yard fo
 - Protocol: `reports/getoff_v1_protocol.md`
 - Results: `reports/getoff_v1_results.md`
 - Notebook: `notebooks/getoff_submission.ipynb` recomputes the measurement, the tuned comparison, the shared-penalty diagnostic, and the figures. `notebooks/submission.ipynb` is the older receiver study and does not support this writeup.
-- Run locally: `python -m bdb2027.getoff` with the competition CSVs in `nfl-big-data-bowl-2027/` or `BDB_DATA_ROOT`.
-- Kaggle: point the notebook at `/kaggle/input/nfl-big-data-bowl-2027` and add this repository's `src` to `PYTHONPATH`. That Kaggle execution has not been run.
+- Paths: `BDB_CODE_ROOT` (source and `config/`, read-only), `BDB_DATA_ROOT` (the CSV directory containing `players.csv`, read-only), and `BDB_WORK_ROOT` (writable outputs). On Kaggle, leave the work path unset and the study writes to `/kaggle/working/getoff-study`.
+- Kaggle setup: attach the competition data and upload this repository as a second dataset. Set `BDB_CODE_ROOT` to that dataset. Install `duckdb` and `pyyaml` in the notebook environment if they are absent. That Kaggle execution has not been run.
 
 ## Closed receiver-cut study
 
